@@ -1,0 +1,2024 @@
+@charset "UTF-8";
+/*******************************************************************************
+ * ■記述方針
+ *   「OOCSS」というオブジェクト指向でのCSS記述の考え方で実装します。
+ *
+ * ■具体例
+ *   構造と見た目を分離する形の記述となります。
+ *   ※例（Bootstrap）
+ *	 ・"btn"クラス（ボタンの基本スタイル）
+ *	 ・"btn-primary"クラス（ボタンの色など見た目のスタイル）など
+ *		<div class="btn btn-primary"></div>
+ *   上記のような構成とすることで、見た目を変更する場合に用意されたものか、
+ *   新たなクラスを定義しそれを指定することで見た目を変更します。
+ *   （基本となる構造を変える場合には、別途それを定義することになります）
+ *
+ * ■命名規則
+ *   ベースとなるクラスは、その内容に合致する名前を指定ください。
+ *	 ※例：アコーディオンであれば「accordion」
+ *   見た目のクラスについては、[ベースクラス]＋「-」＋「内容に合った名称」
+ *	 ※例：フッターのベースクラスは「footer」であるので、
+ *		   見た目のクラスは、「footer-title」のようになります。
+ *   ただし、CSSフレームワークのクラスの場合は、その限りではありません。
+ *
+ * ■ルール
+ *   [1] HTMLタグの要素での指定はしない方向でお願いします。
+ *	   ※例：h1 {～} / div.title {～}
+ *	   ただ、<li>など毎回クラスの指定が不要な場合や、特定のタグ内で利用される
+ *	   spanやiタグなどは対象外とします。
+ *   [2] セレクターは「孫要素」までとしてください。
+ *	   ※例： .親 .子 .孫 {} (4つ以降はなし)
+ *   [3] マージンやパディング、フォントサイズなどは、"rem"単位で指定してください。
+ *	   Bulmaでは 1rem = 16px となっています。
+ *	   0.125rem = 2px / 0.25rem = 4px となります。
+ *	   （※1rem = 10px としたいのですが、そうすると全体のバランスが崩れるためしていません）
+ *   [4] marginに関しては、上下左右のいずれか１つのみであれば、
+ *	   View側で調整(把握)しやすいように、mt-*/mb-* を指定してください。
+ *	   複数のmarginを指定する場合には、各クラスで指定ください。
+ *
+ * ■CSSフレームワーク
+ *   「Bulma」というCSSフレームワークを利用します。
+ *   ※詳細：http://bulma.io/documentation/overview/start/
+ *******************************************************************************/
+
+/*==============================================================================*
+ *=== 共通部
+ *==============================================================================*/
+/*################################################*
+ *# 基本
+ *################################################*/
+body {
+	/* @see http://sole-color-blog.com/blog/design/963/ */
+	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, Arial, "メイリオ", Meiryo, sans-serif;
+	overflow: hidden;
+	/* スマホの横向き時の文字サイズ設定 */
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body::-webkit-scrollbar {
+	display: none; /* スクロールバー非表示(特定ブラウザ) */
+}
+.contents-margin {
+	margin-bottom: 1.25rem;
+	padding: 1.5rem 1.5rem;
+}
+/* リンク */
+a {
+	color: white;
+}
+a:hover {
+	color: white;
+}
+/* Bulma変更 */
+.columns {
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+}
+
+/*################################################*
+ *# 全体共通
+ *################################################*/
+.justify-content-left   { justify-content: left }
+.justify-content-center { justify-content: center }
+.justify-content-right  { justify-content: right }
+.mt-10 { margin-top: 0.625rem }
+.mt-20 { margin-top: 1.25rem }
+.mt-30 { margin-top: 1.875rem }
+.mt-40 { margin-top: 2.5rem }
+.mt-50 { margin-top: 3.125rem }
+.mb-10 { margin-bottom: 0.625rem }
+.mb-20 { margin-bottom: 1.25rem }
+.mb-30 { margin-bottom: 1.875rem }
+.mb-40 { margin-bottom: 2.5rem }
+.mb-50 { margin-bottom: 3.125rem }
+.is-color-grey  { color: grey }
+.is-color-red   { color: red }
+.is-color-white { color: white }
+.is-normal { font-weight: 400 } /* 400 = normal */
+.is-bold { font-weight: 700 } /* 700 = bold */
+.is-hide { display: none }
+.is-fs-1 { font-size: 0.5rem }
+.is-fs-2 { font-size: 0.75rem }
+.is-fs-3 { font-size: 1rem }
+.is-fs-4 { font-size: 1.25rem }
+.is-fs-5 { font-size: 1.5rem }
+.is-fs-6 { font-size: 1.75rem }
+.is-fs-7 { font-size: 2rem }
+.is-paddingrightless { padding-right: 0 }
+.is-disable-pointerevent { pointer-events: none }
+.is-height-auto { height: auto }
+.stress-level-text { color: #ffad4d; font-weight: bold }
+.logo-sateyes { height: 1.375rem; }
+
+/*################################################*
+ *# ボタン
+ *################################################*/
+/* ボタン構成に関しては、Bulmaの .button を利用 */
+.button {
+	height: 2.5rem;		/* 高さ */
+	border-radius: 5px;	/* 角丸み */
+}
+/* 以下で見た目に関するクラスを定義 */
+/* ログインボタン */
+.button.is-login {
+	color: #FFFFFF;
+	background-color: #f0ad4e;
+	border-color: #f0ad4e;
+}
+.button.is-login:hover {
+	color: #FFFFFF;
+	background-color: #ec971f;
+	border-color: #eb9316;
+}
+/* 次へボタン */
+.button.is-next,
+.button.is-square-next {
+	color: #FFFFFF;
+	background-color: #ffad4d;
+	border-color: transparent;
+}
+.button.is-next:hover,
+.button.is-square-next:hover {
+	color: #FFFFFF;
+	background-color: #ffad4d;
+}
+/* 戻るボタン */
+.button.is-back,
+.button.is-square-back {
+	color: #FFFFFF;
+	background-color: #b9b2b0;
+	border-color: transparent;
+}
+.button.is-back:hover,
+.button.is-square-back:hover {
+	color: #FFFFFF;
+	background-color: #b9b2b0;
+}
+.button.is-square-next,
+.button.is-square-back {
+	height: 2.75rem; /* default:2.25em */
+	border-radius: 0; /* 角丸なし */
+}
+/* アイコン */
+.button-icon-arrow-left,
+.button-icon-arrow-right,
+.button-icon-heart-left,
+.button-icon-smile-left {
+	background-repeat: no-repeat;
+	background-size: 1.25rem;
+}
+.button-icon-arrow-left {
+	background-image: url(/img/msr_img/button_left_arrow.png);
+	background-position: left 2% center;
+}
+.button-icon-arrow-right {
+	background-image: url(/img/msr_img/button_right_arrow.png);
+	background-position: right 2% center;
+}
+.button-icon-heart-left {
+	background-image: url(/img/msr_img/heart_check.png);
+	background-position: left 8px center;
+}
+.button.button-icon-small  { background-size: 0.75rem }
+.button.button-icon-normal { background-size: 1rem }
+.button.button-icon-large  { background-size: 1.25rem }
+.button.button-icon-xlarge { background-size: 1.5rem }
+.button.button-width-90,
+.button.button-width-80,
+.button.button-width-70,
+.button.button-width-60,
+.button.button-width-50,
+.button.button-width-40,
+.button.button-width-30,
+.button.button-width-20,
+.button.button-width-10 {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+.button.button-width-90 { width: 90% }
+.button.button-width-80 { width: 80% }
+.button.button-width-70 { width: 70% }
+.button.button-width-60 { width: 60% }
+.button.button-width-50 { width: 50% }
+.button.button-width-40 { width: 40% }
+.button.button-width-30 { width: 30% }
+.button.button-width-20 { width: 20% }
+.button.button-width-10 { width: 10% }
+.button-left-gap  { margin-left: 1px }
+.button-right-gap { margin-right: 1px }
+.button-height-normal { height: 2.25rem; }
+/* iOSでのbutton要素のテキスト中央寄せ用 */
+.button.is-display-block { display: block }
+/* ボタン上部のギャップ */
+.columns .column.button-top-gap {
+	padding-top: 1px;
+}
+/* Gridでのボタン表示: ギャップなし（ボタン間隔指定） */
+.button-columns-micro-gap .column {
+	padding: 0;
+	padding-bottom: 1px;
+}
+.button-columns-micro-gap .column:nth-of-type(odd) {
+	padding-right: 1px;
+}
+
+/*################################################*
+ *# アコーディオン
+ *################################################*/
+.accordion-toggle {
+	margin-bottom: .75rem; /* フレームワークのマージン削除用(.columns) */
+	border-radius: 3px;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+	padding: 0.625rem;
+	background-image: url(/img/msr_img/accordion_up_arrow.png);
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 1.25rem;
+}
+.accordion-toggle-style1 { background-color: #ffad4d }
+.accordion-toggle-style2 { background-color: #29586d }
+.accordion-toggle-open {
+	background-image: url(/img/msr_img/accordion_down_arrow.png);
+}
+/* リスト形式 */
+.accordion-list-group {
+	margin-bottom: 1rem;
+}
+.accordion-list {
+	display: none;
+}
+.accordion-list li {
+	width: 100%;
+	padding: 0.625rem;
+	cursor: pointer;
+	background: url(/img/msr_img/accordion_right_arrow.png);
+	background-repeat: no-repeat;
+	background-position: right 0.625rem center;
+	background-size: 1.25rem;
+}
+.accordion-list li:not(:last-child) {
+	border-bottom: 2px solid #ddd;
+}
+.accordion-list li button {
+	text-align: left;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+	margin-right: 1.5rem;
+	/* ボタンスタイル削除 */
+	border: none;
+	background-color: white;
+}
+/* カラム形式 */
+.accordion-column-group {
+	margin-bottom: 1rem;
+}
+.accordion-column {
+	display: none;
+}
+.accordion-column .column {
+	padding: 1.25rem;
+}
+.accordion-column .column a {
+	color: #27576b;
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+/*################################################*
+ *# プログレスバー
+ *################################################*/
+.progress {
+	background-color: #eceeef;
+}
+.progress-bar {
+	height: 100%;
+	border-radius: 4px;
+}
+/* 進捗率 */
+.progress-bar.progress-bar-0   { width:   0% }
+.progress-bar.progress-bar-5   { width:   5% }
+.progress-bar.progress-bar-10  { width:  10% }
+.progress-bar.progress-bar-15  { width:  15% }
+.progress-bar.progress-bar-20  { width:  20% }
+.progress-bar.progress-bar-25  { width:  25% }
+.progress-bar.progress-bar-30  { width:  30% }
+.progress-bar.progress-bar-35  { width:  35% }
+.progress-bar.progress-bar-40  { width:  40% }
+.progress-bar.progress-bar-45  { width:  45% }
+.progress-bar.progress-bar-50  { width:  50% }
+.progress-bar.progress-bar-55  { width:  55% }
+.progress-bar.progress-bar-60  { width:  60% }
+.progress-bar.progress-bar-65  { width:  65% }
+.progress-bar.progress-bar-70  { width:  70% }
+.progress-bar.progress-bar-75  { width:  75% }
+.progress-bar.progress-bar-80  { width:  80% }
+.progress-bar.progress-bar-85  { width:  85% }
+.progress-bar.progress-bar-90  { width:  90% }
+.progress-bar.progress-bar-95  { width:  95% }
+.progress-bar.progress-bar-100 { width: 100% }
+/* 文字 */
+.progress-bar p {
+	text-align: center;
+	color: white;
+	font-size: 0.9rem;
+}
+/* 色 */
+.progress-bar.is-orange {
+	background-color: #f0ad4e;
+}
+
+/*################################################*
+ *# ナビメニュー
+ *################################################*/
+.nav-shadow {
+	/* 下に1px影 */
+	box-shadow:0px 1px 1px 1px #f1f1f1;
+	-moz-box-shadow:0px 1px 1px 1px #f1f1f1;
+	-webkit-box-shadow:0px 1px 1px 1px #f1f1f1;
+}
+.nav-home {
+	font-size: 2rem;
+	color: #958b87;
+}
+.nav-title {
+	color: #ffad4d;
+	font-size: 1.25rem;
+}
+.nav-left-empty,
+.nav-right-empty {
+	width: 65px;
+}
+/* メニューモーダル */
+.nav-modal-card-head {
+	background-image: url(/img/msr_img/header_back.png);
+	background-size: cover;
+	padding: 0.625rem;
+}
+.nav-modal-card-title {
+	color: #FFF;
+}
+.nav-btn-delete {
+	/* bulmaの .delete.is-large が効かないため指定 */
+	height: 32px;
+	width: 32px;
+	max-height: 32px;
+	max-width: 32px;
+}
+.nav-modal-card-body {
+
+}
+.nav-modal-card-body li {
+	text-align: left;
+	line-height: 2.5rem;
+	border-bottom: 1px solid #eee;
+}
+.nav-modal-card-body li a {
+	display: block;
+	background: url(/img/msr_img/menu_arrow.png) no-repeat right 0.625rem top 0.75rem;
+	background-size: 0.5rem;
+	color: #29586d;
+}
+
+/*################################################*
+ *# フッタ
+ *################################################*/
+.footer {
+	margin: 2rem 1rem;
+	border-top: 1px solid #d7cbc6;
+	/* Bulmaスタイル更新 */
+	padding: 1.5rem 0 0;
+	background-color: transparent;
+}
+.footer-title {
+	margin-bottom: 1.25rem;
+}
+.footer-list {
+
+}
+.footer-list li {
+	display: inline;
+	padding: 0 0.75rem;
+}
+.footer-list li a {
+	color: #68615e;
+}
+.footer-copyright {
+	margin-top: 1rem;
+	font-size: 0.75rem;
+	color: #daceca;
+}
+
+/*==============================================================================*
+ *=== 各画面設定
+ *==============================================================================*/
+/*################################################*
+ *# 共通
+ *################################################*/
+/* タイトル */
+.common-title,
+.common-text,
+.common-question { /* .titleと併用 */
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+.common-title {
+	color: grey;
+}
+.common-subtitle { /* .subtitleと併用 */
+	font-size: 1rem;
+	font-weight: 700;
+}
+/* ハート画像 */
+.common-question1-heart-image {
+	width: 40px;
+	height: 36px;
+}
+/* エンジェル画像（トップ除く） */
+.common-top-angel-image {
+	width: 101px;
+	height: 120px;
+}
+/* 結果タイトル・内容 */
+.common-result-item-title {
+	margin: 1rem 0;
+	padding: 2px;
+	font-size: 1rem;
+	font-weight: 700;
+	color: white;
+	background-color: #33b5b9;
+	border-radius: 10px;
+}
+.common-result-item-title2 {
+	margin: 1rem 0;
+	padding: 2px;
+	color: #69615e;
+	font-size: 1rem;
+	font-weight: 700;
+	border-bottom: 3px solid #bdafac;
+}
+.common-result-item-content {
+
+}
+/* 感情顔画像 */
+.common-emotion-face {
+	display: block;
+	height: 100px;
+	background-position: center center;
+	background-size: 100px 100px;
+	background-repeat: no-repeat;
+}
+.common-emotion-face-0 { background-image: url(/img/msr_img/nervous.png) }
+.common-emotion-face-1   { background-image: url(/img/msr_img/angry.png) }
+.common-emotion-face-2	 { background-image: url(/img/msr_img/cry.png) }
+.common-emotion-face-3 { background-image: url(/img/msr_img/painful.png) }
+.common-emotion-label {
+	margin-top: 1.25rem;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #6a605e;
+}
+/* DNA気質画像 */
+.common-dna-nature-image1,
+.common-dna-nature-image2,
+.common-dna-nature-image3,
+.common-dna-nature-image4,
+.common-dna-nature-image5,
+.common-dna-nature-image6 {
+	height: 110px;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: 80px auto;
+}
+.common-dna-nature-image1 {
+	background-image: url(/img/msr_img/dna_img/nature_1.png);
+}
+.common-dna-nature-image2 {
+	background-image: url(/img/msr_img/dna_img/nature_2.png);
+}
+.common-dna-nature-image3 {
+	background-image: url(/img/msr_img/dna_img/nature_3.png);
+}
+.common-dna-nature-image4 {
+	background-image: url(/img/msr_img/dna_img/nature_4.png);
+}
+.common-dna-nature-image5 {
+	background-image: url(/img/msr_img/dna_img/nature_5.png);
+}
+.common-dna-nature-image6 {
+	background-image: url(/img/msr_img/dna_img/nature_6.png);
+}
+/* 結果メッセージ表示枠 */
+.common-result-message-frame {
+	margin: auto 0.625rem 1.875rem 0.625rem;
+	padding: 5px;
+	border: 1px dashed #ddd;
+}
+/* .contentsと同様のパディング指定 */
+.common-padding-wrapper {
+	padding: 1.5rem 1.5rem;
+}
+
+/*################################################*
+ *# Top（ログイン後トップ）
+ *################################################*/
+.top-header {
+	background-image: url(/img/msr_img/top_upper_bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% 280px;
+	height: 280px;
+}
+.top-header-flex {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	/* 上下左右:中央 */
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	text-align: center;
+	/* 親の高さ継承 */
+	height: inherit;
+}
+.top-header-left,
+.top-header-right {
+	width: 50%;
+	/* 中央縦線の上下延長 */
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+.top-header-left span,
+.top-header-right span {
+	display: block;
+	color: #4a4a4a;
+}
+.top-header-left {
+	border-right: 1px solid white;
+}
+.top-header-icon {
+	width: 25%;
+}
+.top-header-large-text {
+	font-size: 1.5rem;
+	font-weight: bold;
+	line-height: 1;
+}
+.top-header-right-arrow {
+	margin-top: 1rem;
+}
+.top-header-right-arrow img {
+	width: 22px;
+}
+/* お知らせ */
+.top-news {
+	background-color: #fff7ed;
+	padding: 0.5rem;
+}
+.top-news-text {
+	/* お知らせ画像 */
+	background-image: url(/img/msr_img/top_news.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 60px 37px;
+	/* 文言 */
+	font-size: 0.875rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 75px;
+}
+/* マイデータリンク */
+.top-mydata {
+	margin: 2rem 0;
+}
+.top-mydata-list {
+	margin: 0 1.25rem;
+}
+.top-mydata-list-item {
+	cursor: pointer;
+	margin-bottom: 2.5rem;
+	/* 矢印アイコン */
+	background-image: url(/img/msr_img/arrow.png);
+	background-repeat: no-repeat;
+	background-position: center right;
+	background-size: 20px;
+}
+.top-mydata-list-item p {
+	display: inline-block;
+	/* 上下中央 */
+	vertical-align: middle;
+}
+.top-mydata-list-icon {
+	margin-right: 1rem;
+}
+.top-mydata-list-icon img {
+	width: 40px;
+}
+.top-mydata-list-text {
+	/* 行間調整 */
+	line-height: 1.2;
+}
+.top-mydata-list-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+.top-mydata-list-subtitle {
+	font-size: 0.875rem;
+	color: #d6cbc5;
+}
+
+/*################################################*
+ *# ストレスの原因を知る（Assesment）
+ *################################################*/
+.asses-header-angel {
+
+}
+.asses-title {
+
+}
+.asses-subtitle {
+
+}
+.asses-menu-list {
+
+}
+.asses-menu-list li {
+	margin-bottom: 1rem;
+}
+.asses-menu-list li a {
+	color: white;
+	padding-left: 2.5rem;
+}
+
+/*################################################*
+ *# ストレスを軽くする（Diagnosis）
+ *################################################*/
+.diag-heart-image {
+
+}
+.diag-title {
+
+}
+.diag-subtitle {
+
+}
+.diag-question {
+
+}
+.diag-question-subtext {
+	margin: 3.125rem 0;
+}
+.diag-focus-explain {
+	margin: 1.25rem 0;
+	padding: 1.25rem;
+	border: 5px solid #ddd;
+}
+.diag-focus-arrow {
+
+}
+.diag-focus-hmd {
+	margin-top: -1rem;
+	margin-right: 0.5rem;
+}
+
+/*################################################*
+ *# 今のストレスを軽くしたい（StressRelief）
+ *################################################*/
+.stressrel-question-subtext {
+	margin: 2rem 0;
+}
+/* 質問 */
+.stressrel-hero {
+	margin-bottom: 1.875rem
+}
+.stressrel-hero-body {
+	margin-top: 1rem;
+	padding: 0 1rem;
+	text-align: left;
+}
+.stressrel-hero-body-level .level-left,
+.stressrel-hero-body-level .level-right {
+	width: 50%;
+}
+/* 切替・マイスマイリーフェイス反映リンク */
+.stressrel-switch-face,
+.stressrel-update-face {
+	cursor: pointer;
+	color: blue;
+}
+/* コンテンツ */
+.stressrel-contents {
+	height: 100%;
+	padding: 0 1rem;
+	padding-bottom: 1rem;
+	text-align: center;
+	/* 画面サイズが小さい端末用 */
+	margin-bottom: 100px;
+}
+/* ストレス色 */
+.stressrel-color-list {
+	/* .column のマージン削除 */
+	margin: 0;
+}
+.stressrel-color-list .stressrel-color-list-item {
+	height: 60px;
+	cursor: pointer;
+	/* .column 更新 */
+	padding: 0 0.25rem;
+	/* 5カラム */
+	-webkit-box-flex: 0;
+	-ms-flex: none;
+	flex: none;
+	width: 20%;
+}
+.stressrel-color-list .stressrel-color-list-item label {
+	/* 上下中央寄せ
+	line-height: 50px;
+	display: inline-block;
+	text-align: center;*/
+}
+.stressrel-color-list .stressrel-color-list-item-checked {
+	border: 3px solid #eae8e7;
+	text-align: right;
+}
+.stressrel-color-list .stressrel-color-list-item-checked input:checked + label:before {
+	content: "\f3fe";
+	font-family: "Ionicons";
+	color: #eae8e7;
+	font-size: 1.25rem;
+}
+/* ストレス形 */
+.stressrel-shape-item {
+	cursor: pointer;
+}
+.stressrel-shape-item p {
+	width: 100%;
+	text-align: center;
+	/* line-height指定のため、複数行対応不可 */
+	font-size: 0.875rem;
+}
+.stressrel-shape-item .stressrel-shape-item-label {
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-o-border-radius: 50%;
+	-ms-border-radius: 50%;
+	background-color: white;
+	/* JSにて height/line-heightを指定 */
+}
+.stressrel-shape-item .stressrel-shape-item-selected {
+	color: white;
+}
+.stressrel-shape-image {
+	position: absolute;
+}
+.stressrel-bg-pen {
+	background-image: url(/img/msr_img/pen.png);
+	background-repeat: no-repeat;
+	background-position: center 30%;
+	background-size: 40%;
+}
+/* 違和感 */
+.stressrel-uneasy-list {
+	position: absolute;
+	z-index: 2;
+	margin-top: 1rem;
+}
+.stressrel-uneasy-list-item-wrapper {
+	cursor: pointer;
+	/* .column更新 */
+	padding: 0.5rem;
+}
+.stressrel-uneasy-list-item {
+	background-color: #ffad4d;
+	border-radius: 10px;
+	color: white;
+	text-align: left;
+	padding: 0.5rem;
+	/* .button-icon-arrow-right更新 */
+	background-size: 18px;
+	background-position: right 0.75rem center;
+}
+/* ストレス度スライダー */
+.stressrel-stress-range {
+	width: 100%;
+	z-index: 10;
+	padding: 0 1rem; /* 左右余白 */
+}
+.stressrel-stress-range .irs-min,
+.stressrel-stress-range .irs-max {
+	background: none;
+	/* 変更 */
+	font-size: 1.25rem;
+	color: #ff8c00;
+	top: 0.5rem;
+	padding: 0;
+}
+.stressrel-stress-range .irs-single {
+	top: -1.25rem;
+	color: #ff8c00;
+	background: none;
+	font-size: 1.75rem;
+}
+.stressrel-stress-range .irs-single:after {
+	content: "%";
+}
+/* 見た目変更(Flatに) */
+/* スライダー部 */
+.stressrel-stress-range .irs-line,
+.stressrel-stress-range .irs-bar,
+.stressrel-stress-range .irs-bar-edge {
+	/* 既存スタイル削除 */
+	background: none;
+	border: none;
+}
+.stressrel-stress-range .irs-line {
+	background-color: #eee; /* 背景色変更 */
+}
+.stressrel-stress-range .irs-bar,
+.stressrel-stress-range .irs-bar-edge {
+	background-color: #ff8c00; /* 背景色変更 */
+}
+.stressrel-stress-range .irs-bar-edge {
+	width: 25px; /* 隙間調整 */
+}
+/* ボタン */
+.stressrel-stress-range .irs-slider {
+	/* 既存スタイル削除 */
+	background: none;
+	box-shadow: none;
+	border: none;
+	/* スタイル変更 */
+	top: 14px;
+	background-color: #dedede;
+	width: 50px;
+	height: 50px;
+}
+/* パステル画像選択 */
+.stressrel-pastel-image {
+	position: relative;
+	/* 行間の隙間を無くす */
+	margin-top: -6px;
+}
+.stressrel-pastel-image img {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.stressrel-pastel-image .checkbox {
+	display: none;
+}
+.stressrel-pastel-image .checkbox + label {
+	position: absolute;
+	top: 0;
+	right: 5px;
+}
+/* TODO: 枠やチェックボックスの色や大きさ */
+.stressrel-pastel-image .checkbox:checked + label:before {
+	content: "\f3fe";
+	font-family: "Ionicons";
+	color: #e9e8e6;
+	font-size: 1.25rem;
+}
+.stressrel-pastel-image-checked {
+	border: 3px solid #e9e8e6;
+}
+/* 選択パステル画像 */
+.stressrel-pastel-image-list {
+	position: absolute;
+}
+/* 顔画像 */
+.stressrel-face-image-list {
+	/* stressrel-contents でパディング無しを想定 */
+	padding: 0 1rem;
+}
+.stressrel-paging {
+	margin-left: -1rem;
+}
+.stressrel-paging img {
+	cursor: pointer;
+	width: 30px;
+	visibility: hidden;
+}
+.stressrel-paging-text {
+	color: #bab2b0;
+	font-size: 1.5rem;
+	margin: 0 10%;
+}
+.stressrel-smiley-face-text {
+	margin-left: 10%;
+}
+/* 性格・気分・メッセージ・ストレス変化選択肢 */
+.stressrel-character-list,
+.stressrel-feel-list,
+.stressrel-message-list,
+.stressrel-stress-change-list {
+	z-index: 2;
+}
+.stressrel-footer .stressrel-message-list,
+.stressrel-footer .stressrel-stress-change-list {
+	margin-bottom: 1rem; /* .columns:last-child ネガティブマージン更新 */
+}
+.stressrel-character-list-item,
+.stressrel-message-list-item,
+.stressrel-feel-list-item,
+.stressrel-stress-change-list-item {
+	cursor: pointer;
+	text-align: left;
+	padding: 0.375rem 0.5rem;
+	margin-bottom: 0;
+	opacity: 1;
+}
+.stressrel-character-list-item p,
+.stressrel-message-list-item p,
+.stressrel-feel-list-item p,
+.stressrel-stress-change-list-item p {
+	color: white;
+	border-radius: 5px;
+	padding: 0.5rem;
+	padding-right: 1rem; /* 文字が矢印に重ならないように */
+	margin-bottom: 0;
+}
+.stressrel-character-list-item p {
+	color: #a9a9a9;
+	background-color: #ffefd5;
+	padding: 0.375rem;
+}
+.stressrel-feel-list-item p,
+.stressrel-message-list-item p,
+.stressrel-stress-change-list-item p {
+	background-color: #ffad4d;
+	font-size: 0.875rem; /* 文字数が多いため縮小 */
+}
+.stressrel-character-list-item-checked p {
+	background-color: #ffad4d;
+	border: none;
+	color: white;
+}
+.stressrel-character-list-item .checkbox {
+	display: none;
+}
+.stressrel-character-list-item label {
+	cursor: pointer;
+}
+/* 選択顔画像表示 */
+.stressrel-interested-face-image {
+	position: relative;
+	background-color: rgba(10, 10, 10, 0.86);
+	margin: 0 1rem;
+	top: 1rem;
+}
+.stressrel-interested-face-image p {
+	color: white;
+	padding: 0.5rem 0;
+}
+.stressrel-footer-recovery-id {
+	background-color: white;
+}
+/* 心の声 */
+/* TODO: stress-question-answerを流用しているため変更 */
+.stress-question-answer .checkbox {
+	display: none;
+}
+.stress-question-answer .checkbox + label {
+	display: block;
+	width: 100%;
+	padding: 0.5rem 0;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 700;
+	background-color: #eee;
+	transition: .2s;
+}
+.stress-question-answer .checkbox:checked + label {
+	color: #fff;
+	background-color: #33b5b9;
+}
+/* キャンバス */
+.stressrel-shape-canvas {
+	width: 100%;
+	/* 画面上部のバーと質問および、フッター(上マージン除く)の高さを引く */
+	height: calc(100vh - 180px);
+}
+.stressrel-footer {
+	/* 画面下部固定 */
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+/*################################################*
+ *# 本当のストレス原因を知りたい（StressCheck）
+ *################################################*/
+.stress-heart-image {
+	margin-bottom: 1.25rem;
+}
+.stress-title,
+.stress-question {
+	margin-bottom: 1.875rem;
+}
+.stress-question-subtext {
+	margin-bottom: 3.125rem;
+}
+.stress-accordion-list li {
+	font-weight: 700;
+}
+.stress-answer-self {
+
+}
+.stress-answer-other {
+
+}
+.stress-answer-self-title,
+.stress-answer-other-title {
+	margin-top: 0.625rem;
+	padding: 0.625rem;
+	color: white;
+	background-color: #29586d;
+	background-size: cover;
+}
+.stress-answer-self-balloon,
+.stress-answer-other-balloon {
+	height: 100px;
+	padding-top: 1.875rem;
+	text-align: center;
+	color: white;
+	background-image: url(/img/msr_img/comment.png);
+	background-repeat: no-repeat;
+	background-size: auto 75%;
+	background-position: center center;
+}
+.stress-answer-textarea {
+	height: 120px;
+}
+/* 感情選択ボタン用 */
+.stress-button-emotion {
+	background-repeat: no-repeat;
+	background-position: left 8px top 7px;
+	background-size: 30px;
+}
+.stress-button-emotion-nervous {
+	background-color: #79b7c8;
+	background-image: url(/img/msr_img/nervous.png);
+}
+.stress-button-emotion-angry {
+	background-color: #FF0000;
+	background-image: url(/img/msr_img/angry.png);
+}
+.stress-button-emotion-cry {
+	background-color: #a074ea;
+	background-image: url(/img/msr_img/cry.png);
+}
+.stress-button-emotion a {
+	display: block;
+	text-align: center;
+	color: white;
+	padding: 0.625rem;
+}
+.stress-answer-frame {
+	margin: 5px auto;
+	padding: 0.625rem;
+	max-height: 100%;
+	border: 1px dashed #29586d;
+}
+.stress-answer-frame p {
+	color: #29586d;
+}
+/* ラジオボタン */
+.stress-accordion-radio li {
+	padding: 5px;
+	background: none;
+}
+.stress-accordion-radio .radio {
+	display: none;
+}
+.stress-accordion-radio .radio + label {
+	display: inline-block;
+	width: 100%;
+	font-size: 1rem;
+	cursor: pointer;
+}
+.stress-accordion-radio .radio + label:before {
+	font-family: "Ionicons";
+	content: "\f3a6";
+	color: #ffad4d;
+	font-size: 2rem;
+	line-height: 30px;
+	vertical-align: middle;
+	padding: 0 1rem;
+}
+.stress-accordion-radio .radio:checked + label:before {
+	font-family: "Ionicons";
+	content: "\f120";
+	color: #ffad4d;
+	font-size: 1.85rem;
+	vertical-align: middle;
+	padding-right: 1rem;
+}
+.stress-result-title {
+	padding: 0.625rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #29586d;
+	border-bottom: 1px solid #29586d;
+}
+/* ラジオボタン 2カラム */
+.stress-question-answer-wrapper {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+.stress-question-answer {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	width: 50%;
+	border-bottom:2px solid white;
+	text-align: center;
+}
+.stress-question-answer:nth-child(odd) {
+	border-right:2px solid white;
+}
+.stress-question-answer .radio {
+	display: none;
+}
+.stress-question-answer .radio + label {
+	display: block;
+	width: 100%;
+	padding: 0.5rem 0;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 700;
+	background-color: #eee;
+	transition: .2s;
+}
+.stress-question-answer .radio:checked + label {
+	color: #fff;
+	background-color: #33b5b9;
+}
+
+/*################################################*
+ *# メンタル状態を知りたい（MentalCheck）
+ *################################################*/
+.mental-heart-image {
+	margin-bottom: 2.5rem;
+}
+.mental-title,
+.mental-title-subtext,
+.mental-question-title {
+	font-weight: 700;
+}
+.mental-title {
+	font-size: 1.25rem;
+}
+.mental-title-subtext a {
+	color: #33b5b9;
+}
+.mental-question-title {
+	font-size: 1.1rem;
+}
+/* 設問 */
+.mental-question-wrapper {
+	margin-bottom: 2.5rem;
+}
+.mental-question {
+	display: flex;
+	width: 100%;
+	margin-bottom: 1.25rem;
+}
+.mental-question .mental-question-number,
+.mental-question .mental-question-text {
+	 line-height: 1.5rem;
+}
+.mental-question .mental-question-number {
+	width: auto;
+	height: 100%;
+	padding: 1px 0.5rem;
+	color: #FFF;
+	border-radius: 100px;
+	background-color: #33b5b9;
+}
+.mental-question .mental-question-text {
+	flex: 1;
+	word-wrap: break-word;
+	min-width: 0;
+	padding-left: 0.5rem;
+	color: #29586d;
+	font-size: 1.1rem;
+}
+/* 回答ラジオボタン */
+.mental-question-answer-wrapper {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.mental-question-answer {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	width: 33.3333%;
+	text-align: center;
+}
+.mental-question-answer-half {
+	width: 50%;
+}
+.mental-question-answer-quarter {
+	width: 25%;
+}
+.mental-question-answer:not(:last-child) {
+	border-right:2px solid white;
+}
+.mental-question-answer .radio {
+	display: none;
+}
+.mental-question-answer .radio + label {
+	display: block;
+	width: 100%;
+	padding: 0.5rem 0;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 700;
+	background-color: #eee;
+	transition: .2s;
+}
+.mental-question-answer .radio:checked + label {
+	color: #fff;
+	background-color: #33b5b9;
+}
+/* 結果 */
+.mental-result-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+.mental-result-text {
+	color: #292b2c;
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+.mental-result-graph {
+
+}
+.mental-result-advise {
+
+}
+.mental-result-advise .mental-result-advise-title {
+
+}
+.mental-result-data-title {
+
+}
+.mental-result-data-text {
+	color: #292b2c;
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+.mental-result-list {
+
+}
+.mental-result-list-item {
+	padding: 5px;
+	border: 1px solid #29586d;
+	border-radius: 10px;
+}
+.mental-result-list-item .mental-result-list-item-text {
+	color: #29586d;
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+.mental-result-list-item .mental-result-list-item-detail {
+	padding: 6px;
+	border: 1px solid white;
+	border-radius: 12px;
+	background-color: orange;
+}
+.mental-result-list-item .mental-result-list-item-detail a {
+	letter-spacing: 1em;
+	margin-right: -1em;
+}
+.mental-result-item-title {
+
+}
+/* TODO: 暫定(色など) */
+/* ※文字に関してもCSSで対応できるが、多言語対応が必要なためビュー側で指定 */
+.mental-result-icon-good,
+.mental-result-icon-normal,
+.mental-result-icon-bad {
+	padding: 5px 0.5rem;
+	border-radius: 30px;
+	color: white;
+}
+.mental-result-icon-good {
+	background-color: green;
+}
+.mental-result-icon-normal {
+	background-color: yellow;
+}
+.mental-result-icon-bad {
+	background-color: blue;
+}
+
+.mental-result-panel-wrapper {
+
+}
+.mental-result-panel-heading-text {
+	color: #29586d;
+	font-size: 1.125rem;
+	font-weight: 700;
+}
+.mental-result-panel-block {
+	justify-content: center;
+}
+.mental-result-panel-block span:not(:last-child) {
+	margin-right: 5px;
+}
+.mental-result-panel-block-link {
+	padding: 6px;
+	border: 1px solid white;
+	border-radius: 12px;
+	background-color: orange;
+}
+.mental-result-panel-block-link a {
+	letter-spacing: 1em;
+	margin-right: -1em;
+}
+/* メンタルで共通 */
+.mental-sign-icon,
+.mental-sign-icon-on {
+	padding: 1.75rem;
+	border: 3px solid #2fff6f;
+	border-radius: 100%;
+}
+.mental-sign-icon-on {
+	background-color: #2fff6f;
+}
+
+/*################################################*
+ *# DNA気質を知りたい（DnaCheck）
+ *################################################*/
+.dna-heart-image {
+
+}
+.dna-title {
+
+}
+.dna-subtitle a {
+	color: #33b5b9;
+}
+/* 設問 ※MentalCheckと同様 */
+.dna-question-wrapper {
+	margin-bottom: 2.5rem;
+}
+.dna-question {
+	display: flex;
+	width: 100%;
+	margin-bottom: 1.25rem;
+}
+.dna-question .dna-question-number,
+.dna-question .dna-question-text {
+	 line-height: 1.5rem;
+}
+.dna-question .dna-question-number {
+	width: auto;
+	height: 100%;
+	padding: 1px 0.5rem;
+	color: #FFF;
+	border-radius: 100px;
+	background-color: #33b5b9;
+}
+.dna-question .dna-question-text {
+	flex: 1;
+	word-wrap: break-word;
+	min-width: 0;
+	padding-left: 0.5rem;
+	color: #29586d;
+	font-size: 1.1rem;
+}
+/* 回答ラジオボタン ※MentalCheckと同様 */
+.dna-question-answer-wrapper {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.dna-question-answer {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	width: 33.3333%;
+	text-align: center;
+}
+.dna-question-answer:not(:last-child) {
+	border-right:2px solid white;
+}
+.dna-question-answer .radio {
+	display: none;
+}
+.dna-question-answer .radio + label {
+	display: block;
+	width: 100%;
+	padding: 0.5rem 0;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 700;
+	background-color: #eee;
+	transition: .2s;
+}
+.dna-question-answer .radio:checked + label {
+	color: #fff;
+	background-color: #33b5b9;
+}
+.dna-result-title {
+
+}
+.dna-result-nature {
+
+}
+.dna-result-nature-title {
+
+}
+.dna-result-coaching {
+
+}
+.dna-result-coaching-title {
+
+}
+
+/*################################################*
+ *# マイデータ共通（MyData）
+ *################################################*/
+.mydata-heart-image {
+	margin-bottom: 1.25rem;
+}
+.mydata-title {
+	margin-bottom: 0.625rem;
+}
+.mydata-subtitle {
+	margin-bottom: 1.875rem;
+}
+.mydata-button-wrapper {
+	margin-top: 1.875rem;
+}
+.mydata-caption-list {
+	/* 背景のパステル画像で隠れるため */
+	z-index: 2;
+}
+
+/*################################################*
+ *# マイ黄金律（MyData）
+ *################################################*/
+.mypastel-image {
+	position: relative;
+}
+.mypastel-image img {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.26);
+}
+.mypastel-image-checkbox {
+	display: none;
+}
+.mypastel-image-checkbox + label {
+	position: absolute;
+	top: 0;
+	right: 5px;
+}
+/* TODO: 枠やチェックボックスの色や大きさ */
+.mypastel-image-checkbox:checked + label:before {
+	content: "\f120";
+	font-family: "Ionicons";
+	color: blue;
+	font-size: 1.25rem;
+}
+.mypastel-image-checked {
+	border: 2px solid blue;
+}
+
+/*################################################*
+ *# マイスマイリーフェイス（MyData）
+ *################################################*/
+.myface-pastel-image {
+	position: relative;
+	top: -7px;
+}
+.myface-image-list-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* 上下中央寄せ */
+	height: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.myface-image-list {
+	align-items: center;
+}
+.myface-image {
+	position: relative;
+}
+.myface-image .modal-content {
+	overflow: hidden;
+}
+.myface-image img {
+	width: 100%;
+	cursor: pointer;
+}
+.myface-image-checkbox {
+	display: none;
+}
+.myface-image-checkbox + label {
+	position: absolute;
+	top: 0;
+	right: 5px;
+}
+.myface-modal-content {
+	/* モバイルも他サイズと同様に変更 */
+	max-height: calc(100vh - 40px);
+}
+.myface-image .caption {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	margin-top: 0.5rem;
+}
+.myface-image .caption-text {
+	color: white;
+	font-size: 1.25rem;
+}
+/* TODO: 枠やチェックボックスの色や大きさ */
+.myface-image-checkbox:checked + label:before {
+	content: "\f120";
+	font-family: "Ionicons";
+	color: #eae9e7;
+	font-size: 1.25rem;
+}
+.myface-image-checked {
+	border: 3px solid #eae9e7;
+}
+.myface-list-button-wrapper {
+	padding: 1.5rem;
+}
+/* ラジオボタン */
+.myface-accordion-radio {
+	display: block;
+}
+.myface-accordion-radio li {
+	padding: 5px;
+	background: none;
+}
+.myface-accordion-radio .radio {
+	display: none;
+}
+.myface-accordion-radio .radio + label {
+	display: inline-block;
+	width: 100%;
+	font-size: 1rem;
+	cursor: pointer;
+}
+.myface-accordion-radio .radio + label:before {
+	font-family: "Ionicons";
+	content: "\f3a6";
+	color: #27576b;
+	font-size: 2rem;
+	line-height: 30px;
+	vertical-align: middle;
+	padding: 0 1rem;
+}
+.myface-accordion-radio .radio:checked + label:before {
+	font-family: "Ionicons";
+	content: "\f120";
+	color: #27576b;
+	font-size: 1.85rem;
+	vertical-align: middle;
+	padding-right: 1rem;
+}
+.myface-caption-input {
+	padding: 0.5rem 0;
+	margin-left: 4rem;
+}
+.myface-caption-input input {
+	width: 100%;
+}
+
+/*################################################*
+ *# 身体違和感マップ（MyData）
+ *################################################*/
+/* 身体画像 */
+.mybody-body-front,
+.mybody-body-back {
+	position: relative;
+}
+.mybody-body-front-part,
+.mybody-body-back-part {
+	position: absolute;
+	border: 4px dotted #ffad4d;
+	border-radius: 8px;
+	cursor: pointer;
+}
+/* 部位位置 */
+/* 枠サイズとTOP位置は共通、LEFT位置はJavaScriptで調整（以下の値は調整値） */
+.mybody-body-pos-0 { /* 頭(前) */
+	top: 24px;
+	left: 129px;
+	width: 64px;
+	height: 24px;
+}
+.mybody-body-pos-1 { /* 顔(前) */
+	top: 60px;
+	left: 112px;
+	width: 94px;
+	height: 36px;
+}
+.mybody-body-pos-2 { /* 喉(前) */
+	top: 106px;
+	left: 129px;
+	width: 64px;
+	height: 30px;
+}
+.mybody-body-pos-3 { /* 肩(前) */
+	top: 145px;
+	left: 77px;
+	width: 170px;
+	height: 24px;
+}
+.mybody-body-pos-4,
+.mybody-body-pos-5 { /* 右腕(前),左腕(前) */
+	top: 185px;
+	width: 40px;
+	height: 160px;
+}
+.mybody-body-pos-4 { /* 右腕(前) */
+	left: 55px;
+	-ms-transform:skewX(-15deg);
+	-webkit-transform:skewX(-15deg);
+	transform:skewx(-15deg);
+}
+.mybody-body-pos-5 { /* 左腕(前) */
+	left: 229px;
+	-ms-transform:skewX(15deg);
+	-webkit-transform:skewX(15deg);
+	transform:skewx(15deg);
+}
+.mybody-body-pos-6,
+.mybody-body-pos-7 { /* 右手(前),左手(前) */
+	top: 355px;
+	width: 50px;
+	height: 56px;
+}
+.mybody-body-pos-6 { /* 右手(前) */
+	left: 10px;
+	-ms-transform:skewX(-15deg);
+	-webkit-transform:skewX(-15deg);
+	transform:skewx(-15deg);
+}
+.mybody-body-pos-7 { /* 左手(前) */
+	left: 260px;
+	-ms-transform:skewX(15deg);
+	-webkit-transform:skewX(15deg);
+	transform:skewx(15deg);
+}
+.mybody-body-pos-8 { /* 胸(前) */
+	top: 180px;
+	left: 123px;
+	width: 78px;
+	height: 90px;
+}
+.mybody-body-pos-9 { /* 腹(前) */
+	top: 290px;
+	left: 115px;
+	width: 96px;
+	height: 70px;
+}
+.mybody-body-pos-10,
+.mybody-body-pos-11 { /* 右足(前),左足(前) */
+	top: 380px;
+	width: 50px;
+	height: 230px;
+}
+.mybody-body-pos-10 { /* 右足(前) */
+	left: 107px;
+}
+.mybody-body-pos-11 { /* 左足(前) */
+	left: 167px;
+}
+.mybody-body-pos-12,
+.mybody-body-pos-13 { /* 右足先(前),左足先(前) */
+	top: 634px;
+	width: 44px;
+	height: 60px;
+}
+.mybody-body-pos-12 { /* 右足先(前) */
+	left: 100px;
+	-ms-transform:skewX(-20deg);
+	-webkit-transform:skewX(-20deg);
+	transform:skewx(-20deg);
+}
+.mybody-body-pos-13 { /* 左足先(前) */
+	left: 172px;
+	-ms-transform:skewX(22deg);
+	-webkit-transform:skewX(22deg);
+	transform:skewx(22deg);
+}
+.mybody-body-pos-14 { /* 後頭部(後) */
+	top: 35px;
+	left: 125px;
+	width: 72px;
+	height: 60px;
+}
+.mybody-body-pos-15 { /* 後肩(後) */
+	top: 145px;
+	left: 77px;
+	width: 170px;
+	height: 30px;
+}
+/* 前と同じだが、別で記載 */
+.mybody-body-pos-16,
+.mybody-body-pos-17 { /* 左腕(後),右腕(後) */
+	top: 185px;
+	width: 40px;
+	height: 160px;
+}
+.mybody-body-pos-16 { /* 左腕(後) */
+	left: 57px;
+	-ms-transform:skewX(-15deg);
+	-webkit-transform:skewX(-15deg);
+	transform:skewx(-15deg);
+}
+.mybody-body-pos-17 { /* 右腕(後) */
+	left: 227px;
+	-ms-transform:skewX(15deg);
+	-webkit-transform:skewX(15deg);
+	transform:skewx(15deg);
+}
+.mybody-body-pos-18,
+.mybody-body-pos-19 { /* 左手の甲(後),右手の甲(後) */
+	top: 358px;
+	width: 50px;
+	height: 56px;
+}
+.mybody-body-pos-18 { /* 左手の甲(後) */
+	left: 10px;
+	-ms-transform:skewX(-15deg);
+	-webkit-transform:skewX(-15deg);
+	transform:skewx(-15deg);
+}
+.mybody-body-pos-19 { /* 右手の甲(後) */
+	left: 260px;
+	-ms-transform:skewX(15deg);
+	-webkit-transform:skewX(15deg);
+	transform:skewx(15deg);
+}
+.mybody-body-pos-20 { /* 背中(後) */
+	top: 186px;
+	left: 123px;
+	width: 78px;
+	height: 80px;
+}
+.mybody-body-pos-21 { /* 腰(後) */
+	top: 294px;
+	left: 114px;
+	width: 96px;
+	height: 90px;
+}
+.mybody-body-pos-22,
+.mybody-body-pos-23 { /* 左太もも(後),右太もも(後) */
+	/* 前と同じだが、別で記載 */
+	top: 410px;
+	width: 50px;
+	height: 200px;
+}
+.mybody-body-pos-22 { /* 左太もも(後) */
+	left: 105px;
+}
+.mybody-body-pos-23 { /* 右太もも(後) */
+	left: 167px;
+}
+.mybody-body-pos-24,
+.mybody-body-pos-25 { /* 左かかと(後),右かかと(後) */
+	top: 632px;
+	width: 42px;
+	height: 60px;
+}
+.mybody-body-pos-24 { /* 左かかと(後) */
+	left: 110px;
+}
+.mybody-body-pos-25 { /* 右かかと(後) */
+	left: 165px;
+}
+.mybody-image-list {
+	align-items: center;
+}
+.mybody-image {
+	position: relative;
+}
+.mybody-image .modal-content {
+	overflow: hidden;
+}
+.mybody-image img {
+	width: 100%;
+	cursor: pointer;
+}
+.mybody-image-checkbox {
+	display: none;
+}
+.mybody-image-checkbox + label {
+	position: absolute;
+	top: 0;
+	right: 5px;
+}
+/* TODO: 枠やチェックボックスの色や大きさ */
+.mybody-image-checkbox:checked + label:before {
+	content: "\f120";
+	font-family: "Ionicons";
+	color: blue;
+	font-size: 1.25rem;
+}
+.mybody-image-checked {
+	border: 2px solid blue;
+}
+
+/*################################################*
+ *# 光イメージ/マイスマイリーフェイス（トップ）
+ *################################################*/
+.mypastelface-image {
+	position: relative;
+}
+.mypastelface-image-list {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	/* .columns のmargin変更 */
+	margin: 0 0 0.75rem 0;
+}
+.mypastelface-face-image {
+	padding: 0;
+}
+
+/*################################################*
+ *# 記録データ（トップ）
+ *################################################*/
+.history-top-header-angel {
+
+}
+.history-top-title {
+
+}
+.history-top-subtitle {
+
+}
+.history-top-menu-list {
+
+}
+.history-top-menu-list li {
+	margin-bottom: 1rem;
+}
+.history-top-menu-list li a {
+	padding-left: 2.5rem;
+}
+
+/*################################################*
+ *# 記録データ（本当のストレス原因を知りたい）
+ *################################################*/
+.history-stress-title {
+
+}
+.history-stress-subtitle {
+
+}
+.history-stress-result-wrapper {
+
+}
+.history-stress-result {
+
+}
+
+/*################################################*
+ *# 記録データ（メンタル状態を知りたい）
+ *################################################*/
+.history-mental-* {
+
+}
+
+/*################################################*
+ *# 記録データ（DNA気質を知りたい）
+ *################################################*/
+.history-dna-result-title {
+
+}
+.history-dna-result-nature {
+
+}
+.history-dna-result-nature-title {
+
+}
+.history-dna-result-coaching {
+
+}
+.history-dna-result-coaching-title {
+
+}
+
+/*################################################*
+ *# 記録データ（ストレスケア履歴）
+ *################################################*/
+.history-stresscare-title {
+
+}
+.history-stresscare-ion-arrow-right {
+	padding: 0 1em;
+	font-size: 1.1rem;
+}
+.history-stresscare-result-body {
+	padding-right: 1em;
+}
+.history-stresscare-pastel-face-modal {
+	overflow: hidden;
+}
+.history-stresscare-face-image {
+	position: absolute;
+	margin: 0 0.625rem;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+}
+
+/*################################################*
+ *# プライバシー関連
+ *################################################*/
+.privacy-heading-1,
+.privacy-heading-2 {
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+	font-weight: bold;
+}
+.privacy-heading-1 {
+	font-size: 1.5rem;
+	border-bottom: 2px solid #33b5b9;
+}
+.privacy-heading-2 {
+	margin-top: 1rem;
+	font-size: 1.25rem;
+	border-bottom: 1px solid #29586d;
+}
+.privacy-policy-list li {
+	margin-bottom: 1rem;
+}
+.privacy-table-purpose thead th {
+	text-align: center;
+	background-color: #f5f5f5;
+}
+.privacy-open-info-content .privacy-inquiry-list {
+	/* Bulmaのスタイルが当たらないように2階層指定 */
+	list-style-type: none;
+	font-size: 0.875rem;
+}
+.privacy-inquiry-list li:nth-child(odd) span {
+	padding-right: 2px;
+	border-bottom: 1px solid #29586d;
+}
+.privacy-inquiry-list li:nth-child(even) {
+	padding-left: 1.5rem;
+}

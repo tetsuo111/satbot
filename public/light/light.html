@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="gr__stg_mindset-research_co_jp"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">		<title>SAT BOT|</title>
+	
+	<link rel="stylesheet" type="text/css" href="https://satbot-v2.herokuapp.com/public/css/bulma.min.css">
+	<link rel="stylesheet" type="text/css" href="https://satbot-v2.herokuapp.com/public/css/ionicons.min.css">
+	<link rel="stylesheet" type="text/css" href="https://satbot-v2.herokuapp.com/public/css/wv_style.css">
+
+	<script type="text/javascript" src="https://satbot-v2.herokuapp.com/public/js/jquery.min.js"></script>
+	<script type="text/javascript" src="https://satbot-v2.herokuapp.com/public/js/common.js"></script>
+	
+<script type="text/javascript">
+//<![CDATA[
+	jQuery(function($){
+		// 初期化
+		(function () {
+			var pastelId = '';
+			if (pastelId != '') {
+				var split = pastelId.split(',');
+				for (var i = 0; i < split.length; i++) {
+					toggleCheckBox($('.stressrel-pastel-image .checkbox[value="' + split[i] + '"]'));
+				}
+			}
+		})();
+
+		// チェックボックス選択処理
+		function toggleCheckBox(jqCheckBox) {
+			// 対象となる画像にクラス付与
+			jqCheckBox.prop('checked', (! jqCheckBox.is(':checked')));
+			jqCheckBox.nextAll('img').toggleClass('stressrel-pastel-image-checked');
+			// 決定ボタン有効/無効切替
+			toggleBtnNext();
+		}
+		// 決定ボタン切替処理
+		function toggleBtnNext() {
+			$('#js-submit-button').prop('disabled', ($('.stressrel-pastel-image-checked').length == 0));
+		};
+
+		// 画像選択時
+		$('.stressrel-pastel-image').click(function() {
+			toggleCheckBox($(this).find('.checkbox'));
+		});
+
+		// 決定ボタン押下時処理
+		$('#js-submit-button').click(function() {
+			if ($('.stressrel-pastel-image-checked').length == 0) {
+				alert('色が選択されていません。');
+				return false;
+			}
+			$('#js-form').submit();
+			return false;
+		});
+	});
+
+	function init() {
+        var para = decodeURIComponent(location.search.split("?")[1]);
+        document.getElementsByName('uid')[0].value=para;
+   }
+
+//]]>
+</script></head>
+<body data-gr-c-s-loaded="true" onLoad="init()">
+<div class="container">
+	<form action="http://satbot-v2.herokuapp.com/public/light/post_send/index.php" id="js-form" method="post" accept-charset="utf-8">
+		<div style="display:none;">
+			<input type="hidden" name="_method" value="POST">
+			<input type="hidden" name="uid" value="" >
+			<input type="hidden" name="data[_Token][key]" value="">
+		</div>
+
+<div class="hero stressrel-hero">
+	<div class="hero-body stressrel-hero-body">
+		<p class="common-title">その違和感を感じる部分は、どの色の光に守られていると癒されそう？（複数OK）</p>
+			</div>
+</div>
+<div class="stressrel-contents">
+	<div class="columns is-multiline is-mobile is-gapless">
+								<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="9" class="checkbox"><label for="select_light_id"></label>					
+					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_9.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="10" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_10.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="11" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_11.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="12" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_12.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="13" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_13.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="49" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_49.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="14" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_14.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="15" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_15.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="16" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_16.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="17" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_17.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="18" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_18.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="50" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_50.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="19" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_19.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="20" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_20.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="21" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_21.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="22" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_22.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="23" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_23.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="51" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_51.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="24" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_24.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="25" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_25.jpg">
+				</div>
+			</div>
+
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="26" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_26.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="27" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_27.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="28" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_28.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="52" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_52.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="29" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_29.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="30" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_30.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="31" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_31.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="32" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_32.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="33" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_33.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="53" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_53.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="34" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_34.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="35" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_35.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="36" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_36.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="37" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_37.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="38" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_38.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="54" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_54.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="39" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_39.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="40" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_40.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="41" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_41.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="42" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_42.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="43" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_43.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="55" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_55.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="44" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_44.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="45" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_45.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="46" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_46.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="47" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_47.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="48" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_48.jpg">
+				</div>
+			</div>
+						<div class="column is-4">
+				<div class="stressrel-pastel-image">
+					<input type="checkbox" name="data[select_light_id][]" value="56" class="checkbox"><label for="select_light_id"></label>					<img src="http://stg.mindset-research.co.jp/img/pastel/thumb/light_56.jpg">
+				</div>
+			</div>
+						</div>
+</div>
+<footer class="stressrel-footer">
+	<div class="columns is-mobile is-gapless">
+		<div class="column"><button type="submit" id="js-submit-button" class="button is-square-next is-fullwidth is-display-block button-icon-arrow-right" disabled="disabled">決定</button></div>
+	</div>
+</footer>
+<div style="display:none;">
+			<input type="hidden" name="data[_Token][fields]" value="">
+			<input type="hidden" name="data[_Token][unlocked]" value="">
+		</div>
+	</form>	
+</div>
+
+</body></html>
+
